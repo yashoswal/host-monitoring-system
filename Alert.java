@@ -4,7 +4,9 @@ public class Alert {
 	private int severity, count;
 	private String node, property, time, summary;
 	
-	public Alert(String info, String sep) {
+	private int in; // for demo
+	
+	public Alert(String info, String sep, int in) {
 		String[] str = info.split(sep);
 		severity = Integer.parseInt(str[0]);
 		count = Integer.parseInt(str[1]);
@@ -12,6 +14,7 @@ public class Alert {
 		property = str[3];
 		time = str[4];
 		summary = str[5];
+		this.in = in;
 	}
 	
 	public int getSeverity() {
@@ -38,10 +41,23 @@ public class Alert {
 		return summary;
 	}
 	
+	
+	public int getIn() {
+		return in;
+	}
+	
+	@Override
+	public boolean equals(Object o) {
+		Alert a = (Alert) o;
+		return this.severity == a.severity &&
+				this.node.equals(a.node) && this.property.equals(a.property)
+				&& this.summary.equals(a.summary);
+	}
+	
 	@Override
 	public String toString() {
-		return "Severity: " + String.valueOf(severity) + " Count: " + count + 
-				" Node: " + node + " Property: " + property + 
-				" Time: " + time + " Summary: " + summary;
+		return String.valueOf(severity) + "|" + count + 
+				"|" + node + "|" + property + 
+				"|" + time + "|" + summary;
 	}
 }
